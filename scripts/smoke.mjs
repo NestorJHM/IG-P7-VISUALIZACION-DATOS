@@ -9,6 +9,8 @@ const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console'
 await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
 await page.waitForSelector('html[data-ready="true"]',{timeout:45000,state:'attached'});await page.waitForTimeout(1800);
 await fs.mkdir('tmp',{recursive:true});await page.screenshot({path:'tmp/desktop-final.png'});
+if ((await page.locator('.location-name').innerText()) !== 'LAS PALMAS DE GRAN CANARIA') throw new Error('Ciudad incorrecta');
+console.log('City:', await page.locator('.location-name').innerText());
 console.log('Initial:',await page.locator('#reading').innerText());
 await page.getByRole('button',{name:'Día',exact:true}).click();console.log('Day:',await page.locator('#reading').innerText());
 await page.locator('#zone').selectOption('santa');console.log('Zone:',await page.locator('#coordinates').innerText());
@@ -20,4 +22,5 @@ await page.getByRole('button',{name:'Noche',exact:true}).click();await page.getB
 await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);await page.screenshot({path:'tmp/mobile-final.png'});console.log('Mobile overflow:',await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
 console.log('Errors:',JSON.stringify(errors));await fs.writeFile('tmp/smoke-result.json',JSON.stringify({errors},null,2));
 await browser.close();if(errors.length)process.exitCode=1;
+
 
