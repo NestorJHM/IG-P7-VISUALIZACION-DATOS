@@ -1,0 +1,23 @@
+﻿import fs from 'node:fs/promises';
+import path from 'node:path';
+import {createRequire} from 'node:module';
+const deps=process.env.SILENCIO_DEPS||path.join(process.env.TEMP,'silencio-tools/node_modules');
+const require=createRequire(path.join(deps,'../package.json'));const{chromium}=require('playwright');
+const browser=await chromium.launch({channel:'chrome',headless:true,args:['--enable-webgl','--ignore-gpu-blocklist','--enable-unsafe-swiftshader']});
+const page=await browser.newPage({viewport:{width:1440,height:960},deviceScaleFactor:1});
+const errors=[];page.on('pageerror',e=>errors.push(e.message));page.on('console',m=>{if(m.type()==='error')errors.push(m.text());});
+await page.goto('http://127.0.0.1:4173/',{waitUntil:'networkidle'});
+await page.waitForSelector('html[data-ready="true"]',{timeout:45000,state:'attached'});await page.waitForTimeout(1800);
+await fs.mkdir('tmp',{recursive:true});await page.screenshot({path:'tmp/desktop-final.png'});
+console.log('Initial:',await page.locator('#reading').innerText());
+await page.getByRole('button',{name:'Día',exact:true}).click();console.log('Day:',await page.locator('#reading').innerText());
+await page.locator('#zone').selectOption('santa');console.log('Zone:',await page.locator('#coordinates').innerText());
+await page.getByRole('switch',{name:'Tejido urbano'}).uncheck();await page.getByRole('switch',{name:'Tejido urbano'}).check();
+await page.getByRole('button',{name:'Vista aérea',exact:true}).click();await page.waitForTimeout(1700);await page.screenshot({path:'tmp/aerial-final.png'});
+await page.getByRole('button',{name:'¿Y si adaptáramos la ciudad?'}).click();await page.locator('#threshold').fill('55');console.log('Threshold:',await page.locator('#threshold-result').innerText());await page.locator('#show-quiet').click();await page.keyboard.press('Escape');
+await page.getByRole('button',{name:'Datos y lectura'}).click();console.log('Source dialog:',await page.locator('#about').isVisible());await page.keyboard.press('Escape');
+await page.getByRole('button',{name:'Noche',exact:true}).click();await page.getByRole('button',{name:'Explorar',exact:true}).click();await page.waitForTimeout(1700);
+await page.setViewportSize({width:390,height:844});await page.waitForTimeout(400);await page.screenshot({path:'tmp/mobile-final.png'});console.log('Mobile overflow:',await page.evaluate(()=>document.documentElement.scrollWidth>innerWidth));
+console.log('Errors:',JSON.stringify(errors));await fs.writeFile('tmp/smoke-result.json',JSON.stringify({errors},null,2));
+await browser.close();if(errors.length)process.exitCode=1;
+
