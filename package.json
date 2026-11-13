@@ -7,7 +7,8 @@
     "dev": "node scripts/run.mjs dev",
     "build": "node scripts/run.mjs build",
     "preview": "node scripts/run.mjs preview",
-    "data:refresh": "node scripts/fetch-data.mjs"
+    "data:refresh": "node scripts/fetch-data.mjs",
+    "data:terrain": "node scripts/fetch-terrain.mjs"
   },
   "dependencies": {
     "three": "0.187.0"

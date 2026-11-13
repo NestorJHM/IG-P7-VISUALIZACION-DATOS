@@ -1,65 +1,122 @@
-﻿# SILENCIO™
+# SILENCIO
 
-### La ciudad como sistema nervioso
+**Buscando la tranquilidad.**
 
-**SILENCIO™** es una presentación interactiva que explora el ruido ambiental de Las Palmas de Gran Canaria. Combina la geografía urbana con información acústica para transformar un fenómeno invisible en un paisaje tridimensional.
+* [Vídeo de demostración](/docs/Vídeo%20demo.mp4)
 
-Las calles aparecen como fibras luminosas, los edificios forman el tejido de la ciudad y las bandas de ruido se elevan como membranas translúcidas. Esta metáfora presenta la ciudad como un organismo atravesado por estímulos y plantea una pregunta: **¿Y si adaptáramos la ciudad?**
+## Contenido
 
-![Vista de la presentación SILENCIO](docs/vista-desktop.png)
+- [Autoría](#autoría)
+- [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
+- [Instrucciones](#instrucciones)
+- [Datos de la simulación](#datos-de-la-simulación)
+- [Actualizar los datos y comprobar el proyecto](#actualizar-los-datos-y-comprobar-el-proyecto)
 
-[Ver el recorrido en vídeo · 30 segundos](docs/demo.mp4)
+### Autoría
 
-## Qué muestra la presentación
+* [Néstor J. Henríquez Medina](http://github.com/NestorJHM)
 
-La escena permite observar cómo se distribuyen las bandas acústicas sobre una parte de la ciudad y comparar su representación durante el día y la noche. El color y la altura del relieve facilitan reconocer diferencias entre zonas, mientras que las transparencias permiten mantener visible el entorno urbano.
+Esta práctica, de la asignatura "Informática Gráfica", propone una visualización interactiva del ruido ambiental en Las Palmas de Gran Canaria. Combinamos los edificios y calles reales con un relieve acústico y una iluminación que cambia con la hora del día simulada.
 
-La presentación invita a reflexionar sobre el espacio que queda para quienes necesitan entornos con menos estímulos. Su perspectiva incorpora la diversidad de necesidades sensoriales sin atribuir una única forma de percibir la ciudad a todas las personas neurodivergentes.
+![Vista actual de escritorio](docs/luz-noche.png)
 
-## Alcance temporal de los datos
+## Cómo ejecutar el proyecto
 
-La presentación actual compara dos mapas agregados: el indicador de ruido diurno **Ld** y el nocturno **Ln**. Estos indicadores describen niveles medios a largo plazo de sus respectivos periodos, definidos sobre el conjunto de días o noches de un año. El año de referencia de las capas utilizadas no está identificado en los metadatos consultados.
+### Requisitos
 
-Por tanto, la comparación muestra diferencias entre periodos agregados. No permite seguir las horas de una fecha concreta, reproducir una semana ni observar fluctuaciones horarias. Para incorporar esa lectura temporal es necesario disponer de registros acústicos fechados y con hora de observación.
+- Instala **Node.js 22.12 o posterior**, que incluye **npm**.
+- Utiliza un navegador actualizado con aceleración gráfica activada para mostrar el mapa 3D.
 
-## Qué puede explorar el espectador
+### Instalar y arrancar
 
-- **Recorrer la ciudad:** girar la vista, acercarse a los detalles y alternar entre una perspectiva oblicua y una vista aérea.
-- **Comparar el día y la noche:** observar los cambios entre las bandas acústicas de ambos periodos.
-- **Separar las capas:** mostrar u ocultar los edificios, las fibras urbanas y el relieve acústico para examinar su relación.
-- **Consultar lugares concretos:** seleccionar puntos del mapa o visitar Mesa y López, Las Canteras, Santa Catalina, Alcaravaneras y La Isleta para consultar el intervalo acústico disponible.
-- **Explorar un umbral personal:** elegir un nivel de referencia y atenuar visualmente las bandas que quedan por encima, mediante la pregunta «¿Y si adaptáramos la ciudad?».
-- **Regular la experiencia:** pausar las animaciones y activar, si se desea, un acompañamiento sonoro artístico.
-- **Seguir un recorrido automático:** contemplar la escena mediante una trayectoria de cámara de 30 segundos.
+1. Descarga o copia el proyecto y abre una terminal en su carpeta principal, donde se encuentra `package.json`.
+2. Instala las dependencias. Este paso necesita conexión a Internet y se realiza la primera vez:
 
-## Cómo interpretar la visualización
+   ```bash
+   npm install
+   ```
 
-| Elemento visual | Significado |
-| --- | --- |
-| Edificios y calles | Distribución geográfica del tejido urbano. |
-| Fibras luminosas | Interpretación de las calles como conexiones de un organismo. |
-| Membranas de color | Representación de las bandas de ruido ambiental. |
-| Altura del relieve acústico | Mayor altura para bandas de mayor nivel sonoro. |
-| Intervalo en decibelios | Banda acústica disponible en la muestra más próxima al punto seleccionado. |
-| Selector día/noche | Comparación de los indicadores de ruido diurno y nocturno. |
+3. Arranca el proyecto:
 
-El relieve está exagerado y suavizado para facilitar su lectura. Las alturas acústicas son una representación visual de los intervalos sonoros. Las alturas de los edificios también están adaptadas para hacer visible el tejido urbano.
+   ```bash
+   npm run dev
+   ```
 
-Los pulsos de las fibras y el acompañamiento sonoro forman parte de la propuesta artística. Las bandas acústicas corresponden a cartografía publicada, por lo que la presentación no describe lo que está sonando en ese instante.
+4. Abre [http://127.0.0.1:5173/](http://127.0.0.1:5173/) en el navegador y espera a que se cargue el mapa.
 
-Cuando un punto carece de información, se indica como **sin datos**. La ausencia de información no permite concluir que exista silencio. El porcentaje mostrado al explorar un umbral se refiere a muestras acústicas disponibles, no a población.
+Mantén la terminal abierta mientras usas la aplicación. Para detenerla, pulsa **Ctrl + C** en esa terminal. Las siguientes veces basta con ejecutar `npm run dev`.
 
-## Información representada
+Los mapas y la textura de la ciudad ya están incluidos en `public/data/`. Los comandos para actualizar esos datos se explican al final de este documento.
 
-La geografía procede de **© OpenStreetMap contributors**, bajo [licencia Open Database License](https://www.openstreetmap.org/copyright).
+Si `npm install` falla dentro de una carpeta sincronizada con Google Drive, copia el proyecto a una carpeta local y repite la instalación allí.
 
-Las bandas de ruido diurno y nocturno proceden del [Mapa de Ruido del Ayuntamiento de Las Palmas de Gran Canaria](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer), con los indicadores **Ld** y **Ln**, respectivamente. La fecha del estudio no consta en los metadatos consultados, por lo que no se atribuye la información a un año concreto.
+### Preparar y probar la versión final
 
-El ámbito mostrado es una parte de Las Palmas de Gran Canaria. La cobertura de edificios es parcial en el suroeste y el contorno del suelo está simplificado.
+Desde la misma carpeta, ejecuta:
 
-## La pregunta final
+```bash
+npm run build
+npm run preview
+```
 
-**¿Cuánto espacio deja la ciudad para quienes necesitan menos estímulos?**
+El primer comando genera la versión final en `build/`. El segundo la sirve en [http://127.0.0.1:4173/](http://127.0.0.1:4173/). Mantén esa terminal abierta y pulsa **Ctrl + C** para detenerla.
 
-SILENCIO™ propone observar el entorno desde esa pregunta y considerar la adaptación de los espacios compartidos a distintas necesidades sensoriales.
+### Instrucciones
 
+- El control de la vista se hace mediante el ratón:
+    - Clic izquierdo rotamos la vista.
+    - Clic derecho desplazamos el mapa.
+    - Rueda del ratón para hacer zoom.
+
+- Podemos mover la barra inferior horaria para ver la evolución de las bandas acústicas a través del tiempo.
+
+- El selector de velocidad permite **x1, x4 y x8**. Se puede cambiar la velocidad durante la reproducción o en pausa. 
+- El botón de **dos flechas** activa o desactiva la reproducción en bucle. Se puede arrastrar el deslizador durante la reproducción para continuar desde otra hora.
+- El panel de la derecha muestra la zona seleccionada, su estimación acústica, la escala de ruido y las coordenadas. Puedes cambiar de zona con el selector o seleccionar un punto del mapa.
+- El panel **Capas**, a la izquierda, permite mostrar u ocultar los edificios, las calles y el ruido ambiental. **Datos y licencia** muestra las fuentes utilizadas.
+- El icono de vista alterna entre perspectiva y vista aérea.
+- El icono de expansión muestra **solo el mapa**. Se vuelve con **Esc** o con el cierre de la esquina superior derecha, visible al pasar el ratón.
+- La barra espaciadora alterna reproducción y pausa. 
+
+
+## Datos de la simulación
+
+La geografía procede de **© OpenStreetMap contributors**, bajo [Open Database License](https://www.openstreetmap.org/copyright). Se usan las alturas etiquetadas cuando existen y alturas ilustrativas deterministas cuando faltan; están exageradas para facilitar la lectura.
+
+
+La superficie de la ciudad utiliza una **ortofoto real PNOA actual**, del [IGN / Sistema Cartográfico Nacional](https://pnoa.ign.es/web/portal/pnoa-imagen/ortofotos-pnoa-maxima-actualidad), con licencia [CC BY 4.0](https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf). La imagen se guarda localmente en `public/data/las-palmas-pnoa.jpg`. Recibe las sombras y responde a la iluminación de la escena.
+
+Las bandas acústicas proceden del [Mapa de Ruido del Ayuntamiento de Las Palmas de Gran Canaria](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer): **Ld (día), Le (tarde) y Ln (noche)**, capas 16, 17 y 18. 
+
+Los mapas se alinean por coordenadas sobre la rejilla diurna. Durante una transición solo se interpola donde ambos mapas tienen datos.
+
+### Evolución acústica
+
+`src/simulation.js` utiliza las horas ilustrativas **07:00 → día**, **19:00 → tarde** y **23:59 → noche**. Se ha optado por hacerlo de esta forma para poder dar un efecto de variación del ruido.
+
+Para evitar una evolución a saltos se añade una fluctuación continua y suavizada.
+
+Las luces móviles siguen los segmentos reales de las calles OSM. Su densidad favorece las vías con mayor nivel acústico y disminuye gradualmente al atardecer, manteniendo actividad nocturna. Son una representación ilustrativa del tráfico, sin conteos de vehículos medidos. Se ocultan junto con la capa **Calles**.
+
+Las bandas utilizan la mitad de la altura visual anterior, manteniendo los mismos valores y colores de ruido. Al activar la capa ascienden desde el suelo en unos **1,1 segundos**; al desactivarla descienden suavemente. La transición puede invertirse sin saltos y se conserva durante la reproducción. El relieve incorpora paredes y base cerradas, con curvas de nivel continuas por los bordes, sin asignar mediciones a zonas sin cobertura.
+
+### Luz solar y sombras
+
+`src/daylight.js` define una trayectoria solar ilustrativa para la latitud de Las Palmas (**28,13° N**), donde  **amanecer es a las 07:00 y la puesta del sol a las 20:00**.
+
+La altura de la luz del sol y su color cambian con la hora. La iluminación ambiente, el hemisferio, el fondo, la niebla y el agua también cambian para pasar progresivamente del amanecer al mediodía, al atardecer y a la noche. 
+
+Los edificios proyectan sombras sobre el terreno y entre sí mediante un mapa de sombras de **4096 × 4096**. 
+
+El relieve de ruido y las alturas urbanas son representaciones visuales, por lo que las sombras no deben interpretarse como algo exacto.
+
+![Noche](docs/luz-noche.png) |
+
+## Actualizar los datos y comprobar el proyecto
+
+- `npm run data:refresh`: descarga geografía y los tres periodos acústicos.
+- `npm run data:terrain`: regenera el recorte de costa y descarga la ortofoto PNOA alineada con `city.json`. Ejecutar tras actualizar la geografía.
+- `node scripts/check-acoustic.mjs`: comprueba la altura, el cierre de la geometría y los contornos, y las transiciones reversibles.
+- `node scripts/fetch-evening.mjs`: actualiza solo la tarde.
+
+El proyecto usa Three.js y Vite.

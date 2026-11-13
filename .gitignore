@@ -7,3 +7,8 @@ dist/
 tmp/
 
 build/
+scripts/*
+scripts/fetch-data.mjs
+scripts/record.mjs
+scripts/smoke.mjs
+
