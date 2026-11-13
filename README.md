@@ -4,21 +4,22 @@
 
 * [Vídeo de demostración](/docs/Vídeo%20demo.mp4)
 
-## Contenido
-
-- [Autoría](#autoría)
-- [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
-- [Instrucciones](#instrucciones)
-- [Datos de la simulación](#datos-de-la-simulación)
-- [Actualizar los datos y comprobar el proyecto](#actualizar-los-datos-y-comprobar-el-proyecto)
-
 ### Autoría
 
 * [Néstor J. Henríquez Medina](http://github.com/NestorJHM)
+## Contenido
+
+- [Cómo ejecutar el proyecto](#cómo-ejecutar-el-proyecto)
+- [Instrucciones de uso](#instrucciones-de-uso)
+- [Datos de la simulación](#datos-de-la-simulación)
+- [Actualizar los datos y comprobar el proyecto](#actualizar-los-datos-y-comprobar-el-proyecto)
+- [Referencias y fuentes](#referencias-y-fuentes)
+
 
 Esta práctica, de la asignatura "Informática Gráfica", propone una visualización interactiva del ruido ambiental en Las Palmas de Gran Canaria. Combinamos los edificios y calles reales con un relieve acústico y una iluminación que cambia con la hora del día simulada.
 
 ![Vista actual de escritorio](docs/luz-noche.png)
+*Vista nocturna de SILENCIO: visualización del ruido ambiental en Las Palmas de Gran Canaria.*
 
 ## Cómo ejecutar el proyecto
 
@@ -61,7 +62,7 @@ npm run preview
 
 El primer comando genera la versión final en `build/`. El segundo la sirve en [http://127.0.0.1:4173/](http://127.0.0.1:4173/). Mantén esa terminal abierta y pulsa **Ctrl + C** para detenerla.
 
-### Instrucciones
+### Instrucciones de uso
 
 - El control de la vista se hace mediante el ratón:
     - Clic izquierdo rotamos la vista.
@@ -110,8 +111,6 @@ Los edificios proyectan sombras sobre el terreno y entre sí mediante un mapa de
 
 El relieve de ruido y las alturas urbanas son representaciones visuales, por lo que las sombras no deben interpretarse como algo exacto.
 
-![Noche](docs/luz-noche.png) |
-
 ## Actualizar los datos y comprobar el proyecto
 
 - `npm run data:refresh`: descarga geografía y los tres periodos acústicos.
@@ -120,3 +119,20 @@ El relieve de ruido y las alturas urbanas son representaciones visuales, por lo 
 - `node scripts/fetch-evening.mjs`: actualiza solo la tarde.
 
 El proyecto usa Three.js y Vite.
+
+## Referencias y fuentes
+
+### Fuentes de los datos
+
+- **[OpenStreetMap](https://www.openstreetmap.org/copyright)**: edificios, calles y línea de costa de Las Palmas de Gran Canaria. Datos de © OpenStreetMap contributors, bajo licencia ODbL.
+- **[Mapa de Ruido del Ayuntamiento de Las Palmas de Gran Canaria](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer)**: niveles de ruido ambiental del día, la tarde y la noche. Se utilizan las capas [16 · día (Ld)](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer/16), [17 · tarde (Le)](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer/17) y [18 · noche (Ln)](https://sit.laspalmasgc.es/server/rest/services/Medioambiente___Mapa_de_Ruido/MapServer/18).
+- **[PNOA · IGN / Sistema Cartográfico Nacional](https://pnoa.ign.es/web/portal/pnoa-imagen/ortofotos-pnoa-maxima-actualidad)**: fotografía aérea utilizada para cubrir el terreno de la ciudad. Se conserva la atribución de la imagen conforme a las [condiciones de uso del IGN, CC BY 4.0](https://www.ign.es/resources/licencia/Condiciones_licenciaUso_IGN.pdf).
+
+### Herramientas y documentación
+
+- **[otsedom.github.io/IG/S7](https://github.com/otsedom/otsedom.github.io/tree/main/IG/S7)**: repositorio de documentación de la asignatura.
+- **[otsedom.github.io/IG/S8](https://github.com/otsedom/otsedom.github.io/tree/main/IG/S8)**: repositorio de documentación de la asignatura.
+- **[Three.js](https://threejs.org/docs/)**: creación del mapa 3D, iluminación, sombras y controles de cámara.
+- **[Vite](https://vite.dev/guide/)**: arranque del proyecto en el navegador y preparación de la versión final.
+- **[Node.js](https://nodejs.org/learn/getting-started/introduction-to-nodejs)**: ejecución de los comandos del proyecto.
+
