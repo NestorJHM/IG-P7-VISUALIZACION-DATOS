@@ -2,7 +2,7 @@
 
 **Buscando la tranquilidad.**
 
-* [Vídeo de demostración](/docs/Vídeo%20demo.mp4)
+* [Vídeo de demostración](https://youtu.be/hAxok_xTz6g)
 
 ### Autoría
 
